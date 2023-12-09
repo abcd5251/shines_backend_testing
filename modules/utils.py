@@ -84,7 +84,7 @@ def openai_model(query):
     answer = response.choices[0].message['content']
     return answer
 
-def generate_audio(content: str, gender : int, audio_number : int):
+def generate_audio(content: str, gender : int):
     
     if gender == 0:
         tone = "Emily"

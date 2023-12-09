@@ -17,7 +17,7 @@ from modules.utils import generate_audio, get_summarization
 app = FastAPI()
 
 app.mount("/images", StaticFiles(directory="images"), name="images")
-app.mount("/audio", StaticFiles(directory="audio"), name="audio")
+app.mount("/video", StaticFiles(directory="video"), name="video")
 
 # middleware
 app.add_middleware(
@@ -62,13 +62,14 @@ async def tag_respond(item: tag_respond):
     try:
         yt_meta_data = get_tag_info(item.tag_num, item.page)
         yt_meta_data_json = yt_meta_data.to_json(orient="records")
+        print(yt_meta_data_json)
         return JSONResponse(content={"code": 0, "data": yt_meta_data_json}, status_code=200)
     except Exception as e:
         return JSONResponse(content={"code": 1, "error": str(e)}, status_code=500)
 
 @app.get("/get_audio/")
-async def get_audio(content : str, gender : int, audio_number: int):
-    audio = generate_audio(content, gender, audio_number)
+async def get_audio(content : str, gender : int):
+    audio = generate_audio(content, gender)
     
     #audio_path = f"audio/audio_{audio_number}.mp3"
     return StreamingResponse(io.BytesIO(audio), media_type="audio/mp3")
@@ -85,13 +86,13 @@ async def get_image(image_number: int):
 
 @app.get("/get_mp4/")
 async def get_mp4():
-    mp4_file_path = "path/to/your/local/file.mp4"  # Replace with the actual path to your MP4 file
+    mp4_file_path = "./video/example.mp4"  
 
     if os.path.exists(mp4_file_path):
         with open(mp4_file_path, "rb") as mp4_file:
             mp4_content = mp4_file.read()
 
-        return StreamingResponse(io.BytesIO(mp4_content), media_type="video/mp4", headers={"Content-Disposition": "inline; filename=example.mp4"})
+        return StreamingResponse(io.BytesIO(mp4_content), media_type="video/mp4")
     else:
         return {"error": "Generate failed"}
 

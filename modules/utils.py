@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-set_api_key(os.getenv("ELEVENLAB_API_KEY")) 
+set_api_key(os.getenv("ELEVEN_API_KEY")) 
 
 COMPLETIONS_MODEL = "gpt-3.5-turbo"
 

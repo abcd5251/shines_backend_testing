@@ -86,7 +86,7 @@ async def get_image(image_number: int):
 
 @app.get("/get_mp4/")
 async def get_mp4():
-    mp4_file_path = "./video/example.mp4"  
+    mp4_file_path = "./video/demo_1.mp4"  
 
     if os.path.exists(mp4_file_path):
         with open(mp4_file_path, "rb") as mp4_file:

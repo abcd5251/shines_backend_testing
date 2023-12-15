@@ -47,8 +47,8 @@ class Summarization(BaseModel):
 async def search_channel_respond(item: search_channel_respond):
     try:
         yt_meta_data = get_yt_channel_data(item.search_query, item.page)
-        yt_meta_data_json = yt_meta_data.to_json(orient="records")
-        return JSONResponse(content={"code": 0, "data": yt_meta_data_json}, status_code=200)
+
+        return JSONResponse(content=yt_meta_data.to_dict(orient="records"), status_code=200)
     except Exception as e:
         return JSONResponse(content={"code": 1, "error": str(e)}, status_code=500)
     
@@ -62,8 +62,7 @@ async def tag_respond(item: tag_respond):
     try:
         yt_meta_data = get_tag_info(item.tag_num, item.page)
         yt_meta_data_json = yt_meta_data.to_json(orient="records")
-        print(yt_meta_data_json)
-        return JSONResponse(content={"code": 0, "data": yt_meta_data_json}, status_code=200)
+        return JSONResponse(content=yt_meta_data.to_dict(orient="records"), status_code=200)
     except Exception as e:
         return JSONResponse(content={"code": 1, "error": str(e)}, status_code=500)
 

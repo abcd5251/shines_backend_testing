@@ -50,7 +50,14 @@ def get_yt_channel_data(search_query:str, page:int):
    
    
     final_df = pd.DataFrame([dict(row.items()) for row in results])
-    print(final_df)
+    
+    play_link = []
+    for yt_url in final_df["video_url"]:
+        temp_link = get_mp4_link(yt_url)
+        play_link.append(temp_link)
+    final_df["play_link"] = play_link
+
+
     return final_df
 
 def get_tag_info(tag_num:int, page : int):
@@ -80,7 +87,13 @@ def get_tag_info(tag_num:int, page : int):
    
    
     final_df = pd.DataFrame([dict(row.items()) for row in results])
-    print(final_df)
+    play_link = []
+    for yt_url in final_df["video_url"]:
+        temp_link = get_mp4_link(yt_url)
+        play_link.append(temp_link)
+    final_df["play_link"] = play_link
+
+
     return final_df
 
 

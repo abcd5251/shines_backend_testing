@@ -51,7 +51,7 @@ def save_channel_links(username: str):
 
     for idx, video in enumerate(videos):
         yt_url = URL + video['videoId']
-        if idx > 8:
+        if idx > 6:
             break
         try:
             # Create uuid 
